@@ -31,14 +31,6 @@ public class Player extends Entity {
     public void getPlayerImage(){
 
         try{
-        //    up1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("Volumes/MAGIC1/CS50/My2DGame/LaraCroft_up1.png"));
-        //    up2 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("Volumes/MAGIC1/CS50/My2DGame/LaraCroft_up1.png"));
-        //    down1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("Volumes/MAGIC1/CS50/My2DGame/LaraCroft_down1.png"));
-        //    down2 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("Volumes/MAGIC1/CS50/My2DGame/LaraCroft_down2.png"));
-        //    left1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("Volumes/MAGIC1/CS50/My2DGame/LaraCroft_left1.png"));
-        //    left2 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("Volumes/MAGIC1/CS50/My2DGame/LaraCroft_left2.png"));
-        //    right1 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("Volumes/MAGIC1/CS50/My2DGame/LaraCroft_right1.png"));
-        //    right2 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("Volumes/MAGIC1/CS50/My2DGame/LaraCroft_right2.png"));
         File f1 = new File("LaraCroft_up1.png");
         File f2 = new File("LaraCroft_up2.png");
         File f3 = new File("LaraCroft_down1.png");
