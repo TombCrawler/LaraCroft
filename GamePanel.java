@@ -21,6 +21,8 @@ public class GamePanel extends JPanel implements Runnable{
 
     KeyHandler keyH = new KeyHandler();
     Thread gameThread; // Thread is something you can start and stop the program, such as drawing screen
+    Player player = new Player(this, keyH); // pass this GamePanel class and KeyHandler
+
 
     // set player's default position. the ints are pixels 
     int playerX = 100;
@@ -42,43 +44,66 @@ public class GamePanel extends JPanel implements Runnable{
           gameThread.start(); 
     }
 
-    // this method corresponds to the Runnable class
-    @Override
-    public void run() {
-        // one billion nano-sec means 1 sec, use it for more precise calculation
-        double drawInterval = 1000000000/ FPS; // 0.01666 
-        double nextDrawTime = System.nanoTime() + drawInterval;
+    // this method corresponds to the Runnable class and using the Sleep method w/in the while loop
+    // @Override
+    // public void run() {
+    //     // one billion nano-sec means 1 sec, use it for more precise calculation
+    //     double drawInterval = 1000000000/ FPS; // 0.01666 
+    //     double nextDrawTime = System.nanoTime() + drawInterval;
 
-        // create a game loop which will be the core of our game. 
-        //This line means that as long as gameThread exists, it repeats the process that is written inside of these curly braces
-        while(gameThread != null){
-            //  To test by adding this method to the Main file so that you can print out this message 
-            //   System.out.println(" The game loop is running");    
+    //     // create a game loop which will be the core of our game. 
+    //     //This line means that as long as gameThread exists, it repeats the process that is written inside of these curly braces
+    //     while(gameThread != null){
+    //         //  To test by adding this method to the Main file so that you can print out this message 
+    //         //   System.out.println(" The game loop is running");    
             
-            // 1 Update: update information such as character positions
-            update();
-            // 2 Draw: draw the screen with the updated information
-            repaint(); // this is how you call the paintComponent method, although a bit     
+    //         // 1 Update: update information such as character positions
+    //         update();
+    //         // 2 Draw: draw the screen with the updated information
+    //         repaint(); // this is how you call the paintComponent method, although a bit     
            
 
-            try {
-                double remainingTime = nextDrawTime - System.nanoTime(); // get the remaining time until the nextDraw time
-                remainingTime = remainingTime/ 1000000; // divided by milliseconds. it is how it is when use the sleep method
+    //         try {
+    //             double remainingTime = nextDrawTime - System.nanoTime(); // get the remaining time until the nextDraw time
+    //             remainingTime = remainingTime/ 1000000; // divided by milliseconds. it is how it is when use the sleep method
                 
-                if(remainingTime < 0){
-                    remainingTime = 0; // this situation might not happen but just in case
-                }
+    //             if(remainingTime < 0){
+    //                 remainingTime = 0; // this situation might not happen but just in case
+    //             }
 
-                nextDrawTime += drawInterval; // when the sleep time is over and the thread is awakened, we're gonna set a new nextDrawTime, which means the nextDrawTime will be in  0.01666 sec 
+    //             nextDrawTime += drawInterval; // when the sleep time is over and the thread is awakened, we're gonna set a new nextDrawTime, which means the nextDrawTime will be in  0.01666 sec 
                 
-                Thread.sleep((long) remainingTime);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+    //             Thread.sleep((long) remainingTime);
+    //         } catch (InterruptedException e) {
+    //             e.printStackTrace();
+    //         }
+    //     }
+    // }
+
+    // Use the delta/ accumulate method
+    // what we do here is adding the past time divided by drawInterval to delta, when delta reached the drawInterval 1, we update aand repaint then rest the delta
+    public void run(){
+       double drawInterval = 1000000000/FPS;
+       double delta = 0;
+       long lastTime = System.nanoTime();
+       long currentTime;
+
+       while(gameThread != null){
+
+        currentTime = System.nanoTime();
+
+        delta += (currentTime - lastTime) / drawInterval; // how much time has passed 
+        lastTime = currentTime; // the currentTime becomes the lastTime
+        
+        if(delta >= 1){ // this one equals the drawInterval
+        update();
+        repaint();
+        delta--;  
         }
+      }
     }
 
-    // this method is for changing the player's position
+    // this metho is for changing the player's position
     public void update(){
           if(keyH.upPressed == true){
             playerY -= playerSpeed; // If Y value decreases, the character goes up (opposite to math as this is the convention how most of the graphic frameworks behave)
