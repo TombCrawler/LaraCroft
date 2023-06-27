@@ -8,7 +8,7 @@ public class GamePanel extends JPanel implements Runnable{
     final int originalTileSize = 16; // 16x16 tile
     final int scale = 3; // scale the resolution of the original tile size by this by this int
 
-    final int tileSize = originalTileSize * scale; // gives me the 48x48 tile size
+    public final int tileSize = originalTileSize * scale; // gives me the 48x48 tile size
     final int maxScreenCol = 16;
     final int maxScreenRow = 12;
     
@@ -105,18 +105,9 @@ public class GamePanel extends JPanel implements Runnable{
 
     // this metho is for changing the player's position
     public void update(){
-          if(keyH.upPressed == true){
-            playerY -= playerSpeed; // If Y value decreases, the character goes up (opposite to math as this is the convention how most of the graphic frameworks behave)
-          }
-          else if(keyH.downPressed == true){
-            playerY += playerSpeed;
-          }
-          else if(keyH.leftPressed == true){
-            playerX -= playerSpeed; 
-          }
-          else if(keyH.rightPressed == true){
-            playerX += playerSpeed;
-          }
+
+        player.update();
+    
     }
     // paintComponent is a builtin method in Java which is a standard method to draw things on JPanel
     // the Graphics argument is a class which has many functions to draw objects on the screen, named g
@@ -125,9 +116,9 @@ public class GamePanel extends JPanel implements Runnable{
         super.paintComponent(g);  // whenever use paitComponent, you need this line. the super means the parent of the paintcomponent class
         // before using this Graphics, convert Grphics to Graphics2D class which extends the Graphics class to provide more sophisticated control over geometry, coordinates, color,text layout
         Graphics2D g2 = (Graphics2D)g; 
+        
+        player.draw(g2);
 
-        g2.setColor(Color.white);
-        g2.fillRect(playerX, playerY, tileSize, tileSize ); // Draw a rectangle and fill it with the specified color (x, y, width, height) x, y are the postion of the rect
         g2.dispose(); // the program works w/o this line but it is a good practice to save  by disposing grpahic context nd release any system resources 
  
     }
