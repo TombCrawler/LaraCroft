@@ -32,7 +32,7 @@ public class Player extends Entity {
 
         try{
         up1 = ImageIO.read(getClass().getResourceAsStream("/player/LaraCroft_up1.png"));
-        up2 = ImageIO.read(getClass().getResourceAsStream("/player/LaraCroft_up1.png"));
+        up2 = ImageIO.read(getClass().getResourceAsStream("/player/LaraCroft_up2.png"));
         down1 = ImageIO.read(getClass().getResourceAsStream("/player/LaraCroft_down1.png"));
         down2 = ImageIO.read(getClass().getResourceAsStream("/player/LaraCroft_down2.png"));
         left1 = ImageIO.read(getClass().getResourceAsStream("/player/LaraCroft_left1.png"));
@@ -45,37 +45,41 @@ public class Player extends Entity {
         }
     }
 
-    public void update(){ 
-        if(keyH.upPressed == true){
-           direction = "up"; 
-           y -= speed; // If Y value decreases, the character goes up (opposite to math as this is the convention how most of the graphic frameworks behave)
-        }
-        else if(keyH.downPressed == true){
-           direction = "down";
-           y += speed;
-        }
-        else if(keyH.leftPressed == true){
-           direction = "left"; 
-           x -= speed; 
-        }
-        else if(keyH.rightPressed == true){
-           direction = "right"; 
-           x += speed;
-          }
-        
-        // update() method get called 60 frames per sec in GamePanel class. if it hits 10 changes,it changes the sprite 1 to 2, 2 to 1 
-        // meaning the player image changes in every 10 frames 
-        spriteCounter++;
-        if(spriteCounter > 10){
-            if(spriteNum == 1){
-                spriteNum = 2;
+    public void update(){
+
+        if(keyH.upPressed == true || keyH.downPressed == true ||
+                keyH.leftPressed == true || keyH.rightPressed == true){
+
+            if(keyH.upPressed == true){
+                direction = "up";
+                y -= speed; // If Y value decreases, the character goes up (opposite to math as this is the convention how most of the graphic frameworks behave)
             }
-            else if(spriteNum == 2){
-                spriteNum = 1;
+            else if(keyH.downPressed == true){
+                direction = "down";
+                y += speed;
             }
-            spriteCounter = 0;
+            else if(keyH.leftPressed == true){
+                direction = "left";
+                x -= speed;
+            }
+            else if(keyH.rightPressed == true){
+                direction = "right";
+                x += speed;
+            }
+
+            // update() method get called 60 frames per sec in GamePanel class. if it hits 10 changes,it changes the sprite 1 to 2, 2 to 1
+            // meaning the player image changes in every 10 frames
+            spriteCounter++;
+            if(spriteCounter > 10){
+                if(spriteNum == 1){
+                    spriteNum = 2;
+                }
+                else if(spriteNum == 2){
+                    spriteNum = 1;
+                }
+                spriteCounter = 0;
+            }
         }
-         
     }
 
     public void draw(Graphics2D g2){
