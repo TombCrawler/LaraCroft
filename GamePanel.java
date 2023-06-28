@@ -19,6 +19,7 @@ public class GamePanel extends JPanel implements Runnable{
     // Set FPS
     int FPS = 60;
 
+    TileManager tileM = new TileManager(this);
     KeyHandler keyH = new KeyHandler();
     Thread gameThread; // Thread is something you can start and stop the program, such as drawing screen
     Player player = new Player(this, keyH); // pass this GamePanel class and KeyHandler
@@ -116,7 +117,8 @@ public class GamePanel extends JPanel implements Runnable{
         super.paintComponent(g);  // whenever use paitComponent, you need this line. the super means the parent of the paintcomponent class
         // before using this Graphics, convert Grphics to Graphics2D class which extends the Graphics class to provide more sophisticated control over geometry, coordinates, color,text layout
         Graphics2D g2 = (Graphics2D)g; 
-        
+
+        tileM.draw(g2); // Make sure you draw the tiles first because this is a layer otherwise you won't see Lara
         player.draw(g2);
 
         g2.dispose(); // the program works w/o this line but it is a good practice to save  by disposing grpahic context nd release any system resources 
