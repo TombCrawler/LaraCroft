@@ -31,22 +31,15 @@ public class Player extends Entity {
     public void getPlayerImage(){
 
         try{
-        File f1 = new File("LaraCroft_up1.png");
-        File f2 = new File("LaraCroft_up2.png");
-        File f3 = new File("LaraCroft_down1.png");
-        File f4 = new File("LaraCroft_down2.png");
-        File f5 = new File("LaraCroft_left1.png");
-        File f6 = new File("LaraCroft_left2.png");
-        File f7 = new File("LaraCroft_right1.png");
-        File f8 = new File("LaraCroft_right2.png");
-        up1 = ImageIO.read(f1);
-        up2 = ImageIO.read(f2);
-        down1 = ImageIO.read(f3);
-        down2 = ImageIO.read(f4);
-        left1 = ImageIO.read(f5);
-        left2 = ImageIO.read(f6);
-        right1 = ImageIO.read(f7);
-        right2 = ImageIO.read(f8);
+        up1 = ImageIO.read(getClass().getResourceAsStream("/player/LaraCroft_up1.png"));
+        up2 = ImageIO.read(getClass().getResourceAsStream("/player/LaraCroft_up1.png"));
+        down1 = ImageIO.read(getClass().getResourceAsStream("/player/LaraCroft_down1.png"));
+        down2 = ImageIO.read(getClass().getResourceAsStream("/player/LaraCroft_down2.png"));
+        left1 = ImageIO.read(getClass().getResourceAsStream("/player/LaraCroft_left1.png"));
+        left2 = ImageIO.read(getClass().getResourceAsStream("/player/LaraCroft_left2.png"));
+        right1 = ImageIO.read(getClass().getResourceAsStream("/player/LaraCroft_right1.png"));
+        right2 = ImageIO.read(getClass().getResourceAsStream("/player/LaraCroft_right2.png"));
+
         }catch(IOException e){
             e.printStackTrace();
         }
