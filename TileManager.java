@@ -28,10 +28,10 @@ public class TileManager {
         try{
             // initiate the tile array
             tile[0] = new Tile();
-            tile[0].image = ImageIO.read(getClass().getResourceAsStream("/tiles/tile_grass.png"));
+            tile[0].image = ImageIO.read(getClass().getResourceAsStream("/tiles/Lara_tile.png"));
 
             tile[1] = new Tile();
-            tile[1].image = ImageIO.read(getClass().getResourceAsStream("/tiles/tile_wall.png"));
+            tile[1].image = ImageIO.read(getClass().getResourceAsStream("/tiles/Egypt_tile.png"));
             tile[1].collision = true;
 
             tile[2] = new Tile();
@@ -42,7 +42,7 @@ public class TileManager {
             tile[3].image = ImageIO.read(getClass().getResourceAsStream("/tiles/earth.png"));
 
             tile[4] = new Tile();
-            tile[4].image = ImageIO.read(getClass().getResourceAsStream("/tiles/tree.png"));
+            tile[4].image = ImageIO.read(getClass().getResourceAsStream("/tiles/Egypt_tile2.png"));
             tile[4].collision = true;
 
             tile[5] = new Tile();
