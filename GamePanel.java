@@ -15,14 +15,20 @@ public class GamePanel extends JPanel implements Runnable{
     // Get pixels
     public final int screenWidth = tileSize * maxScreenCol; // 48 * 16 = 768 pixels
     public final int screenHeight = tileSize * maxScreenRow; // 48 * 12 = 576 pixels
-    
+
+    // world setting
+    public final int maxWorldCol = 50;
+    public final int maxWorldRow = 50;
+    public final int worldWidth = tileSize * maxWorldCol;
+    public final int worldHeight = tileSize * maxWorldRow;
+
     // Set FPS
     int FPS = 60;
 
     TileManager tileM = new TileManager(this);
     KeyHandler keyH = new KeyHandler();
     Thread gameThread; // Thread is something you can start and stop the program, such as drawing screen
-    Player player = new Player(this, keyH); // pass this GamePanel class and KeyHandler
+    public Player player = new Player(this, keyH); // pass this GamePanel class and KeyHandler
 
 
     // set player's default position. the ints are pixels 
