@@ -12,19 +12,24 @@ public class Player extends Entity {
     GamePanel gp;
     KeyHandler keyH;
 
+    public final int screenX;
+    public final int screenY;
 
 
     public Player(GamePanel gp, KeyHandler keyH){
          this.gp = gp;
          this.keyH = keyH;
 
+         screenX = gp.screenWidth/2 - (gp.tileSize/2);
+         screenY = gp.screenHeight/2 - (gp.tileSize/2);
+
          setDefaultValues(); // call this method from this constructor
          getPlayerImage();
     }
     public void setDefaultValues(){
 
-        x = 100;
-        y = 100;
+        worldX = gp.tileSize * 23; // this X and Y the default player position in the world map
+        worldY = gp.tileSize * 21; // the tile size is 48x48
         speed = 4; 
         direction = "down";
     }
@@ -52,19 +57,19 @@ public class Player extends Entity {
 
             if(keyH.upPressed == true){
                 direction = "up";
-                y -= speed; // If Y value decreases, the character goes up (opposite to math as this is the convention how most of the graphic frameworks behave)
+                worldY -= speed; // If Y value decreases, the character goes up (opposite to math as this is the convention how most of the graphic frameworks behave)
             }
             else if(keyH.downPressed == true){
                 direction = "down";
-                y += speed;
+                worldY += speed;
             }
             else if(keyH.leftPressed == true){
                 direction = "left";
-                x -= speed;
+                worldX -= speed;
             }
             else if(keyH.rightPressed == true){
                 direction = "right";
-                x += speed;
+                worldX += speed;
             }
 
             // update() method get called 60 frames per sec in GamePanel class. if it hits 10 changes,it changes the sprite 1 to 2, 2 to 1
@@ -124,7 +129,7 @@ public class Player extends Entity {
             break;
 
         }
-        g2.drawImage(image, x, y, gp.tileSize, gp.tileSize, null); // the null is for image observer argument , just set as null
+        g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null); // the null is for image observer argument , just set as null
     } 
 
 } 
