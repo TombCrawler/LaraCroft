@@ -29,7 +29,9 @@ public class GamePanel extends JPanel implements Runnable{
     KeyHandler keyH = new KeyHandler();
     Thread gameThread; // Thread is something you can start and stop the program, such as drawing screen
     public CollisionChecker cChecker = new CollisionChecker(this);
+    public AssetSetter aSetter = new AssetSetter(this);
     public Player player = new Player(this, keyH); // pass this GamePanel class and KeyHandler
+    public SuperObject obj[] = new SuperObject[10]; // 10 means we have 10 slots for objects as zero index
 
 
     // set player's default position. the ints are pixels 
@@ -46,6 +48,9 @@ public class GamePanel extends JPanel implements Runnable{
     }
     
     // throw a method
+    public void setupGame(){
+       aSetter.setObject();
+    }
     public void startGameThread(){
         // the "this" argument means the GamePanel class. Basically we are passing the GamePanel class to this thread's constructor to initiate a thread
           gameThread = new Thread(this);
@@ -125,7 +130,17 @@ public class GamePanel extends JPanel implements Runnable{
         // before using this Graphics, convert Grphics to Graphics2D class which extends the Graphics class to provide more sophisticated control over geometry, coordinates, color,text layout
         Graphics2D g2 = (Graphics2D)g; 
 
+        // Tile
         tileM.draw(g2); // Make sure you draw the tiles first because this is a layer otherwise you won't see Lara
+
+        // Object but this is an array so we need a for loop
+        for(int i = 0; i < obj.length; i++){
+            if(obj[i] != null){ // check if the slot is not empty to avoid NullPointer error
+                obj[i].draw(g2, this);
+            }
+        }
+
+            // Player
         player.draw(g2);
 
         g2.dispose(); // the program works w/o this line but it is a good practice to save  by disposing grpahic context nd release any system resources 
