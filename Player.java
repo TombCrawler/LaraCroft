@@ -14,7 +14,7 @@ public class Player extends Entity {
 
     public final int screenX;
     public final int screenY;
-
+    int hasKey = 0;
 
     public Player(GamePanel gp, KeyHandler keyH){
          this.gp = gp;
@@ -23,7 +23,15 @@ public class Player extends Entity {
          screenX = gp.screenWidth/2 - (gp.tileSize/2);
          screenY = gp.screenHeight/2 - (gp.tileSize/2);
 
-         solidArea = new Rectangle(8, 16, 32, 32);
+//         solidArea = new Rectangle(8, 16, 32, 32); // can be written in 4 separated lines as below
+         solidArea = new Rectangle();
+         solidArea.x = 8;
+         solidArea.y = 16;
+         solidAreaDefaultX = solidArea.x;
+         solidAreaDefaultY = solidArea.y;
+         solidArea.width = 32;
+         solidArea.height = 32;
+
 
          setDefaultValues(); // call this method from this constructor
          getPlayerImage();
@@ -70,9 +78,13 @@ public class Player extends Entity {
                 direction = "right";
             }
 
-            // check tile collision
+            // check Tile collision
             collisionOn = false;
             gp.cChecker.checkTile(this);
+
+            // check Object collision and return an int
+            int objIndex = gp.cChecker.checkObject(this, true);
+            pickUpObject(objIndex);
 
             // If collision is false, player can move
             if(collisionOn == false){
@@ -104,6 +116,36 @@ public class Player extends Entity {
                     spriteNum = 1;
                 }
                 spriteCounter = 0;
+            }
+        }
+    }
+
+    // add another method
+    public void pickUpObject(int i){
+
+        if(i !=999){ // this is a random number, any number is fine unless being used by the object array's index
+//            gp.obj[i] = null; // this deletes objects if you touch it
+            String objectName = gp.obj[i].name;
+
+            switch(objectName){
+                case "Key":
+                    hasKey++;
+                    gp.obj[i] = null;
+                    System.out.println("Key:"+hasKey);
+                    break;
+                case "Door":
+                    if(hasKey > 0){
+                        gp.obj[i] = null;
+                        hasKey--;
+                        System.out.println("Key:"+hasKey);
+                    }else if(hasKey <=0){
+                        System.out.println("Need a Key!");
+                    }
+                    break;
+                case "Doll":
+                    gp.obj[i] = null;
+                    System.out.print("Found a relic!");
+                    break;
             }
         }
     }
