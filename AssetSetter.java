@@ -35,5 +35,9 @@ public class AssetSetter {
         gp.obj[6].worldX = 10 * gp.tileSize; // zero index
         gp.obj[6].worldY = 7 * gp.tileSize; // zero index
 
+        gp.obj[7] = new OBJ_Gun();
+        gp.obj[7].worldX = 37 * gp.tileSize; // zero index
+        gp.obj[7].worldY = 42 * gp.tileSize; // zero index
+
     }
 }

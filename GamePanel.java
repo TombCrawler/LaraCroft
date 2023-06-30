@@ -19,17 +19,22 @@ public class GamePanel extends JPanel implements Runnable{
     // world setting
     public final int maxWorldCol = 50;
     public final int maxWorldRow = 50;
-    public final int worldWidth = tileSize * maxWorldCol;
-    public final int worldHeight = tileSize * maxWorldRow;
+//    public final int worldWidth = tileSize * maxWorldCol; // actually we won't use it
+//    public final int worldHeight = tileSize * maxWorldRow; // actually we won't use it
 
     // Set FPS
     int FPS = 60;
 
+     // System
     TileManager tileM = new TileManager(this);
     KeyHandler keyH = new KeyHandler();
-    Thread gameThread; // Thread is something you can start and stop the program, such as drawing screen
+    Sound sound = new Sound();
+
     public CollisionChecker cChecker = new CollisionChecker(this);
     public AssetSetter aSetter = new AssetSetter(this);
+    Thread gameThread; // Thread is something you can start and stop the program, such as drawing screen
+
+    // Entity and Object
     public Player player = new Player(this, keyH); // pass this GamePanel class and KeyHandler
     public SuperObject obj[] = new SuperObject[10]; // 10 means we have 10 slots for objects as zero index
 
@@ -50,6 +55,7 @@ public class GamePanel extends JPanel implements Runnable{
     // throw a method
     public void setupGame(){
        aSetter.setObject();
+       playMusic(0);
     }
     public void startGameThread(){
         // the "this" argument means the GamePanel class. Basically we are passing the GamePanel class to this thread's constructor to initiate a thread
@@ -143,7 +149,18 @@ public class GamePanel extends JPanel implements Runnable{
             // Player
         player.draw(g2);
 
-        g2.dispose(); // the program works w/o this line but it is a good practice to save  by disposing grpahic context nd release any system resources 
- 
+        g2.dispose(); // the program works w/o this line but it is a good practice to save  by disposing grpahic context nd release any system resources
+    }
+    public void playMusic(int i){
+        sound.setFile(i);
+        sound.play();
+        sound.loop();
+    }
+    public void stopMusic(){
+        sound.stop();
+    }
+    public void playSE(int i){
+        sound.setFile(i);
+        sound.play();
     }
 } 
