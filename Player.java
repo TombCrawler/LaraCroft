@@ -14,7 +14,7 @@ public class Player extends Entity {
 
     public final int screenX;
     public final int screenY;
-    int hasKey = 0;
+    public int hasKey = 0;
 
     public Player(GamePanel gp, KeyHandler keyH){
          this.gp = gp;
@@ -132,7 +132,8 @@ public class Player extends Entity {
                     gp.playSE(1);
                     hasKey++;
                     gp.obj[i] = null;
-                    System.out.println("Key:"+hasKey);
+                    System.out. println("Key:"+hasKey);
+                    gp.ui.showMessage("You got a key!");
                     break;
                 case "Door":
                     if(hasKey > 0){
@@ -140,20 +141,27 @@ public class Player extends Entity {
                         gp.obj[i] = null;
                         hasKey--;
                         System.out.println("Key:"+hasKey);
-                    }else if(hasKey <=0){
+                        gp.ui.showMessage("The door unlocked!");
+                    }else{
                         System.out.println("Need a Key!");
+                        gp.ui.showMessage("You need a key!");
                     }
-                    break;
-                case "Doll":
-                    gp.playSE(4);
-                    gp.obj[i] = null;
-                    System.out.print("Found a relic!");
                     break;
                 case "Gun":
                     gp.playSE(2);
                     speed += 2 ;
                     gp.obj[i] = null;
+                    gp.ui.showMessage("Speed up!");
                     break;
+                case "Doll":
+                    gp.ui.gameFinished = true;
+                    gp.music.stop();
+                    gp.playSE(4);
+                    gp.obj[i] = null;
+//                    System.out.print("Found a relic!");
+//                    gp.ui.showMessage("Found a relic!");
+                    break;
+
             }
         }
     }
