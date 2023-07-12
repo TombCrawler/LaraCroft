@@ -45,19 +45,42 @@ public class Player extends Entity {
     }
     public void getPlayerImage(){
 
-        try{
-        up1 = ImageIO.read(getClass().getResourceAsStream("/player/LaraCroft_up1.png"));
-        up2 = ImageIO.read(getClass().getResourceAsStream("/player/LaraCroft_up2.png"));
-        down1 = ImageIO.read(getClass().getResourceAsStream("/player/LaraCroft_down1.png"));
-        down2 = ImageIO.read(getClass().getResourceAsStream("/player/LaraCroft_down2.png"));
-        left1 = ImageIO.read(getClass().getResourceAsStream("/player/LaraCroft_left1.png"));
-        left2 = ImageIO.read(getClass().getResourceAsStream("/player/LaraCroft_left2.png"));
-        right1 = ImageIO.read(getClass().getResourceAsStream("/player/LaraCroft_right1.png"));
-        right2 = ImageIO.read(getClass().getResourceAsStream("/player/LaraCroft_right2.png"));
+//        try{
+//        up1 = ImageIO.read(getClass().getResourceAsStream("/player/LaraCroft_up1.png"));
+//        up2 = ImageIO.read(getClass().getResourceAsStream("/player/LaraCroft_up2.png"));
+//        down1 = ImageIO.read(getClass().getResourceAsStream("/player/LaraCroft_down1.png"));
+//        down2 = ImageIO.read(getClass().getResourceAsStream("/player/LaraCroft_down2.png"));
+//        left1 = ImageIO.read(getClass().getResourceAsStream("/player/LaraCroft_left1.png"));
+//        left2 = ImageIO.read(getClass().getResourceAsStream("/player/LaraCroft_left2.png"));
+//        right1 = ImageIO.read(getClass().getResourceAsStream("/player/LaraCroft_right1.png"));
+//        right2 = ImageIO.read(getClass().getResourceAsStream("/player/LaraCroft_right2.png"));
+//
+//        }catch(IOException e){
+//            e.printStackTrace();
+//        }
+        up1 = setup("LaraCroft_up1");
+        up2 = setup("LaraCroft_up2");
+        down1 = setup("LaraCroft_down1");
+        down2 = setup("LaraCroft_down2");
+        left1 = setup("LaraCroft_left1");
+        left2 = setup("LaraCroft_left2");
+        right1 = setup("LaraCroft_right1");
+        right2 = setup("LaraCroft_right2");
 
+    }
+
+    public BufferedImage setup(String imageName){
+
+        UtilityTool uTool = new UtilityTool();
+        BufferedImage image = null;
+
+        try{
+          image = ImageIO.read(getClass().getResourceAsStream("/player/"+imageName+".png"));
+            image = uTool.scaleImage(image, gp.tileSize, gp.tileSize);
         }catch(IOException e){
             e.printStackTrace();
         }
+        return image;
     }
 
     public void update(){
@@ -208,7 +231,7 @@ public class Player extends Entity {
             break;
 
         }
-        g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null); // the null is for image observer argument , just set as null
+        g2.drawImage(image, screenX, screenY, null); // the null is for image observer argument , just set as null
     } 
 
 } 

@@ -5,6 +5,8 @@ import java.awt.event.KeyListener;
 public class KeyHandler implements KeyListener {
     
     public boolean upPressed, downPressed, leftPressed, rightPressed;
+    // debug
+    boolean checkDrawTime = false;
 
     @Override
     public void keyTyped(KeyEvent e) {
@@ -27,6 +29,16 @@ public class KeyHandler implements KeyListener {
        if(code == KeyEvent.VK_D){
           rightPressed = true;
        }
+       // Debug
+        if(code == KeyEvent.VK_T){
+            if(checkDrawTime == false){ // the drawTime is not appearing yet
+                checkDrawTime = true; // this means if you pushed the T,the time will appear meaning it's true
+            }
+            else {
+                checkDrawTime = false; // otherwise it disappears
+            }
+        }
+
     }
 
     @Override

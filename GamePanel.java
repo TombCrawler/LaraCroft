@@ -136,7 +136,15 @@ public class GamePanel extends JPanel implements Runnable{
         // the GamePanel is a subclass of JPanel
         super.paintComponent(g);  // whenever use paitComponent, you need this line. the super means the parent of the paintcomponent class
         // before using this Graphics, convert Grphics to Graphics2D class which extends the Graphics class to provide more sophisticated control over geometry, coordinates, color,text layout
-        Graphics2D g2 = (Graphics2D)g; 
+        Graphics2D g2 = (Graphics2D)g;
+
+        // DEBUG
+        long drawStart = 0;
+        if(keyH.checkDrawTime == true){
+            drawStart = System.nanoTime();
+        }
+
+
 
         // Tile
         tileM.draw(g2); // Make sure you draw the tiles first because this is a layer otherwise you won't see Lara
@@ -153,6 +161,15 @@ public class GamePanel extends JPanel implements Runnable{
 
         // UI
         ui.draw(g2);
+
+        // DEBUG
+        if(keyH.checkDrawTime==true){
+            long drawEnd = System.nanoTime();
+            long passed = drawEnd - drawStart;
+            g2.setColor(Color.white);
+            g2.drawString("DrawTime: " + passed,10,400);
+            System.out.println("Draw Time: "+ passed);
+        }
 
         g2.dispose(); // the program works w/o this line but it is a good practice to save  by disposing grpahic context nd release any system resources
     }
