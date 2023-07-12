@@ -14,7 +14,8 @@ public class Player extends Entity {
 
     public final int screenX;
     public final int screenY;
-    public int hasKey = 0;
+//    public int hasKey = 0;
+    int standCounter = 0;
 
     public Player(GamePanel gp, KeyHandler keyH){
          this.gp = gp;
@@ -146,46 +147,8 @@ public class Player extends Entity {
     // add another method
     public void pickUpObject(int i){
 
-        if(i !=999){ // this is a random number, any number is fine unless being used by the object array's index
-//            gp.obj[i] = null; // this deletes objects if you touch it
-            String objectName = gp.obj[i].name;
+        if(i !=999){
 
-            switch(objectName){
-                case "Key":
-                    gp.playSE(1);
-                    hasKey++;
-                    gp.obj[i] = null;
-                    System.out. println("Key:"+hasKey);
-                    gp.ui.showMessage("You got a key!");
-                    break;
-                case "Door":
-                    if(hasKey > 0){
-                        gp.playSE(3);
-                        gp.obj[i] = null;
-                        hasKey--;
-                        System.out.println("Key:"+hasKey);
-                        gp.ui.showMessage("The door unlocked!");
-                    }else{
-                        System.out.println("Need a Key!");
-                        gp.ui.showMessage("You need a key!");
-                    }
-                    break;
-                case "Gun":
-                    gp.playSE(2);
-                    speed += 2 ;
-                    gp.obj[i] = null;
-                    gp.ui.showMessage("Speed up!");
-                    break;
-                case "Doll":
-                    gp.ui.gameFinished = true;
-                    gp.music.stop();
-                    gp.playSE(4);
-                    gp.obj[i] = null;
-//                    System.out.print("Found a relic!");
-//                    gp.ui.showMessage("Found a relic!");
-                    break;
-
-            }
         }
     }
 

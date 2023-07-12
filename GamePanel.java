@@ -27,7 +27,7 @@ public class GamePanel extends JPanel implements Runnable{
 
      // System
     TileManager tileM = new TileManager(this);
-    KeyHandler keyH = new KeyHandler();
+    KeyHandler keyH = new KeyHandler(this);
     Sound music = new Sound();
     Sound se = new Sound();
 
@@ -39,6 +39,12 @@ public class GamePanel extends JPanel implements Runnable{
     // Entity and Object
     public Player player = new Player(this, keyH); // pass this GamePanel class and KeyHandler
     public SuperObject obj[] = new SuperObject[10]; // 10 means we have 10 slots for objects as zero index
+
+    // Game state, which tells the game whether you are playing the game or in the home screen etc..
+    public int gameState;
+    public final int playState = 1;
+    public final int pauseState = 2;
+
 
 
     // set player's default position. the ints are pixels 
@@ -58,6 +64,9 @@ public class GamePanel extends JPanel implements Runnable{
     public void setupGame(){
        aSetter.setObject();
        playMusic(0);
+       stopMusic();
+       gameState = playState;
+
     }
     public void startGameThread(){
         // the "this" argument means the GamePanel class. Basically we are passing the GamePanel class to this thread's constructor to initiate a thread
@@ -127,8 +136,12 @@ public class GamePanel extends JPanel implements Runnable{
     // this metho is for changing the player's position
     public void update(){
 
-        player.update();
-    
+        if(gameState == playState){
+            player.update();
+        }
+        if(gameState == pauseState){
+            // nothing
+        }
     }
     // paintComponent is a builtin method in Java which is a standard method to draw things on JPanel
     // the Graphics argument is a class which has many functions to draw objects on the screen, named g
