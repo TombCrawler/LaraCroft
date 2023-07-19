@@ -133,4 +133,101 @@ public class CollisionChecker {
         }
         return index;
     }
+    // create another method
+    // NPC or Monster
+    public int checkEntity(Entity entity, Entity[] target){
+        int index = 999; // this is a random number, any number is fine unless being used by the object array's index
+        for(int i = 0; i < target.length; i++){
+            if(target[i] != null) {
+                // get entity's solid area position
+                entity.solidArea.x = entity.worldX + entity.solidArea.x;
+                entity.solidArea.y = entity.worldY + entity.solidArea.y;
+
+                // get the target's sold area position
+                target[i].solidArea.x = target[i].worldX + target[i].solidArea.x;
+                target[i].solidArea.y = target[i].worldY + target[i].solidArea.y;
+
+                // create switch to check the entity's direction
+                // intersects is a part of the Rectangle class, and solidArea is that we made out of Rectangle class in the Entity class
+                switch (entity.direction) {
+                    case "up":
+                        entity.solidArea.y -= entity.speed;
+                        if (entity.solidArea.intersects(target[i].solidArea)) {
+                            entity.collisionOn = true;
+                            index = i;
+                        }
+                        break;
+                    case "down":
+                        entity.solidArea.y += entity.speed;
+                        if (entity.solidArea.intersects(target[i].solidArea)) {
+                                entity.collisionOn = true;
+                                index = i;
+                        }
+                        break;
+                    case "left":
+                        entity.solidArea.x -= entity.speed;
+                        if (entity.solidArea.intersects(target[i].solidArea)) {
+                                entity.collisionOn = true;
+                                index = i;
+                        }
+                        break;
+                    case "right":
+                        entity.solidArea.x += entity.speed;
+                        if (entity.solidArea.intersects(target[i].solidArea)) {
+                                entity.collisionOn = true;
+                                index = i;
+                        }
+                        break;
+                }
+                entity.solidArea.x = entity.solidAreaDefaultX;
+                entity.solidArea.y = entity.solidAreaDefaultY;
+                target[i].solidArea.x = target[i].solidAreaDefaultX;
+                target[i].solidArea.y = target[i].solidAreaDefaultY;
+            }
+        }
+        return index;
+    }
+    // create a method
+    public void checkPlayer(Entity entity){
+        // get entity's solid area position
+        entity.solidArea.x = entity.worldX + entity.solidArea.x;
+        entity.solidArea.y = entity.worldY + entity.solidArea.y;
+
+        // get the target's sold area position
+        gp.player.solidArea.x = gp.player.worldX + gp.player.solidArea.x;
+        gp.player.solidArea.y = gp.player.worldY + gp.player.solidArea.y;
+
+        // create switch to check the entity's direction
+        // intersects is a part of the Rectangle class, and solidArea is that we made out of Rectangle class in the Entity class
+        switch (entity.direction) {
+            case "up":
+                entity.solidArea.y -= entity.speed;
+                if (entity.solidArea.intersects(gp.player.solidArea)) {
+                    entity.collisionOn = true;
+                }
+                break;
+            case "down":
+                entity.solidArea.y += entity.speed;
+                if (entity.solidArea.intersects(gp.player.solidArea)) {
+                    entity.collisionOn = true;
+                }
+                break;
+            case "left":
+                entity.solidArea.x -= entity.speed;
+                if (entity.solidArea.intersects(gp.player.solidArea)) {
+                    entity.collisionOn = true;
+                }
+                break;
+            case "right":
+                entity.solidArea.x += entity.speed;
+                if (entity.solidArea.intersects(gp.player.solidArea)) {
+                    entity.collisionOn = true;
+                }
+                break;
+        }
+        entity.solidArea.x = entity.solidAreaDefaultX;
+        entity.solidArea.y = entity.solidAreaDefaultY;
+        gp.player.solidArea.x = gp.player.solidAreaDefaultX;
+        gp.player.solidArea.y = gp.player.solidAreaDefaultY;
+    }
 }

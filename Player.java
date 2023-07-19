@@ -9,7 +9,7 @@ import java.awt.image.BufferedImage;
 
 public class Player extends Entity {
 
-    GamePanel gp;
+//    GamePanel gp; // mute this line cz you passed gp as a superclass of the Entity class below
     KeyHandler keyH;
 
     public final int screenX;
@@ -18,6 +18,7 @@ public class Player extends Entity {
     int standCounter = 0;
 
     public Player(GamePanel gp, KeyHandler keyH){
+         super(gp); // calling the Entity class's constructor of the super class
          this.gp = gp;
          this.keyH = keyH;
 
@@ -33,7 +34,6 @@ public class Player extends Entity {
          solidArea.width = 32;
          solidArea.height = 32;
 
-
          setDefaultValues(); // call this method from this constructor
          getPlayerImage();
     }
@@ -46,19 +46,6 @@ public class Player extends Entity {
     }
     public void getPlayerImage(){
 
-//        try{
-//        up1 = ImageIO.read(getClass().getResourceAsStream("/player/LaraCroft_up1.png"));
-//        up2 = ImageIO.read(getClass().getResourceAsStream("/player/LaraCroft_up2.png"));
-//        down1 = ImageIO.read(getClass().getResourceAsStream("/player/LaraCroft_down1.png"));
-//        down2 = ImageIO.read(getClass().getResourceAsStream("/player/LaraCroft_down2.png"));
-//        left1 = ImageIO.read(getClass().getResourceAsStream("/player/LaraCroft_left1.png"));
-//        left2 = ImageIO.read(getClass().getResourceAsStream("/player/LaraCroft_left2.png"));
-//        right1 = ImageIO.read(getClass().getResourceAsStream("/player/LaraCroft_right1.png"));
-//        right2 = ImageIO.read(getClass().getResourceAsStream("/player/LaraCroft_right2.png"));
-//
-//        }catch(IOException e){
-//            e.printStackTrace();
-//        }
         up1 = setup("LaraCroft_up1");
         up2 = setup("LaraCroft_up2");
         down1 = setup("LaraCroft_down1");
@@ -110,6 +97,10 @@ public class Player extends Entity {
             int objIndex = gp.cChecker.checkObject(this, true);
             pickUpObject(objIndex);
 
+            // Check the NPC collision
+            int npcIndex = gp.cChecker.checkEntity(this, gp.npc);
+            interactNPC(npcIndex); // create a method
+
             // If collision is false, player can move
             if(collisionOn == false){
 
@@ -132,7 +123,7 @@ public class Player extends Entity {
             // update() method get called 60 frames per sec in GamePanel class. if it hits 10 changes,it changes the sprite 1 to 2, 2 to 1
             // meaning the player image changes in every 10 frames
             spriteCounter++;
-            if(spriteCounter > 10){
+            if(spriteCounter > 12){
                 if(spriteNum == 1){
                     spriteNum = 2;
                 }
@@ -149,6 +140,11 @@ public class Player extends Entity {
 
         if(i !=999){
 
+        }
+    }
+    public void interactNPC(int i){
+        if(i !=999){
+          System.out.println("Hitting an NPC");
         }
     }
 
