@@ -22,6 +22,7 @@ public class Entity {
     public boolean collisionOn = false;
     public int actionLockCounter = 0;
     String dialogues[] = new String[20];
+    int dialogueIndex = 0;
 
     // this is a constructor
     public Entity(GamePanel gp){
@@ -30,7 +31,29 @@ public class Entity {
     }
     // add methods
     public void setAction(){}
-    public void speak(){}
+    public void speak(){
+        if(dialogues[dialogueIndex] == null){
+            dialogueIndex = 0; //w/o this if statement, we get a null pointer exception error
+        }
+        gp.ui.currentDialogue = dialogues[dialogueIndex];
+        dialogueIndex++;
+
+        // to make NPC turn around to talk to the player
+        switch(gp.player.direction){
+            case "up":
+                direction = "down";
+                break;
+            case "down":
+                direction = "up";
+                break;
+            case "left":
+                direction = "right";
+                break;
+            case "right":
+                direction = "left";
+                break;
+        }
+    }
     public void update(){
         setAction();
 

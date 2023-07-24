@@ -25,9 +25,9 @@ public class NPC_OldMan extends Entity{
     // make a method
     public void setDialogue(){
         dialogues[0] = "Hello, Lara";
-        dialogues[1] = "Hello, Lara";
-        dialogues[2] = "Hello, Lara";
-        dialogues[3] = "Hello, Lara";
+        dialogues[1] = "You've made it here, \nfound the relic?";
+        dialogues[2] = "I'm pretty old now \nbut was a great sorcerer";
+        dialogues[3] = "Good luck";
     }
     public void setAction(){
         actionLockCounter ++;
@@ -51,7 +51,30 @@ public class NPC_OldMan extends Entity{
         }
     }
     // create a method
-    public void speak(){
-       gp.ui.currentDialogue = dialogues[0];
+    public void speak(){ // It works w/o this speak method but leave it here for when you want to add specific features to this character
+        super.speak();
+
+        // we called the super class from the Entity class, so we do not need lines below anymore
+//       if(dialogues[dialogueIndex] == null){
+//           dialogueIndex = 0; //w/o this if statement, we get a null pointer exception error
+//       }
+//       gp.ui.currentDialogue = dialogues[dialogueIndex];
+//       dialogueIndex++;
+//
+//       // to make NPC turn around to talk to the player
+//       switch(gp.player.direction){
+//           case "up":
+//               direction = "down";
+//               break;
+//           case "down":
+//               direction = "up";
+//               break;
+//           case "left":
+//               direction = "right";
+//               break;
+//           case "right":
+//               direction = "left";
+//               break;
+//       }
     }
 }

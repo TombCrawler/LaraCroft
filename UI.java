@@ -69,7 +69,12 @@ public class UI {
         g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 32F ));
         x += gp.tileSize;
         y += gp.tileSize;
-        g2.drawString(currentDialogue, x, y); // Graphics.drawString() is a built-in method in Java
+
+        for(String line : currentDialogue.split("\n")){ // to break the line
+            g2.drawString(line, x, y); // Graphics.drawString() is a built-in method in Java
+            y += 40; // increase y so the line will be displayed below the first line
+        }
+
     }
     public void drawSubWindow(int x, int y, int width, int height){
            Color c = new Color(0,0,0, 220); // the fourth "a" alpha parameter is for opacity
