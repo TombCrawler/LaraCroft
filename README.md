@@ -19,10 +19,11 @@ S = down
 <br>
 D = right
 <br>
+Enter = Talk to other characters, and finish the conversation
 
 Rule:<br>
 Collect keys to open each door to find the relic of Ancient Egypt!
-<br>Pick up the gun to speed up! 
+<br>Pick up the gun to speed up! (these features currently disabled)
 <div style="text-align:center;">
 <img src="https://www.egypttoday.com/siteimages/Larg/20201013040134134.jpg" alt="Lara" width="300"  />
 </div>
